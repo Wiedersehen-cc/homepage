@@ -1,0 +1,250 @@
+@use "sass:math";
+
+// Custom variables
+$page-margin-top: 105px;
+$page-max-width: 1920px;
+$logo-height: 80px;
+$intro-max-width: 760px;
+$content-max-width: 667px;
+$content-vertical-margin: 66px;
+
+// Bootstrap customization
+$primary: #000;
+$body-color: $primary;
+$body-bg: #fff;
+$grid-gutter-width: 1rem;
+
+//Bootstrap
+@import "../node_modules/bootstrap/scss/functions";
+// Bootstrap global options
+$enable-caret: false;
+$enable-rounded: false;
+$enable-shadows: false;
+$enable-gradients: false;
+$enable-transitions: false;
+$enable-reduced-motion: false;
+$enable-smooth-scroll: false;
+$enable-grid-classes: true;
+$enable-cssgrid: true;
+$enable-button-pointers: false;
+$enable-rfs: true;
+$enable-validation-icons: false;
+$enable-negative-margins: false;
+$enable-deprecation-messages: true;
+$enable-important-utilities: true;
+
+// Bootstrap Imports
+@import "../node_modules/bootstrap/scss/variables";
+@import "../node_modules/bootstrap/scss/mixins";
+@import "../node_modules/bootstrap/scss/utilities";
+@import "../node_modules/bootstrap/scss/root";
+@import "../node_modules/bootstrap/scss/reboot";
+@import "../node_modules/bootstrap/scss/type";
+@import "../node_modules/bootstrap/scss/images";
+@import "../node_modules/bootstrap/scss/containers";
+@import "../node_modules/bootstrap/scss/grid";
+@import "../node_modules/bootstrap/scss/helpers/position";
+@import "../node_modules/bootstrap/scss/vendor/rfs";
+@import "../node_modules/bootstrap/scss/utilities/api";
+//--
+
+// Fonts
+@font-face {
+  font-family: Saol;
+  font-style: normal;
+  font-weight: 500;
+  src: local(""), url("assets/fonts/SaolText-Regular.woff2") format("woff2"), url("assets/fonts/SaolText-Regular.woff") format("woff") /* Modern Browsers */
+}
+
+.font-family-saol {
+  font-family: Saol, -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+.normal-font {
+  @extend .font-family-saol;
+  @include rfs(1.875rem, font-size); //30px
+  @include rfs(2.0625rem, line-height); //33px
+}
+
+.impressum-font {
+  @extend .font-family-saol;
+  @include rfs(1.25rem, font-size); //20px
+}
+
+.smaller-font {
+  @extend .font-family-saol;
+  @include rfs(1.25rem, font-size); //20px
+  @include rfs(1.5625rem, line-height); //25px
+  @include rfs(.2875rem, letter-spacing); //4.6px
+}
+
+.larger-font {
+  @extend .font-family-saol;
+  @include rfs(2.5rem, font-size); //40px
+  @include rfs(2.7rem, line-height); //43px
+}
+
+//--
+
+// Animations
+.body-animation {
+  animation: fadeInAnimation 3s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+
+@keyframes fadeInAnimation {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+//--
+
+
+body {
+  @extend .normal-font;
+  @extend .body-animation;
+  font-family: Saol, -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  hyphens: manual;
+}
+
+.page-wrapper {
+  max-width: $page-max-width;
+  padding-bottom: $content-vertical-margin;
+  margin: 0 auto;
+}
+
+.impressum,
+.left-column,
+.right-column {
+  display: flex;
+  justify-content: center;
+  @include rfs(1rem, padding-right);
+  @include rfs(1rem, padding-left);
+
+  &-content {
+    max-width: $intro-max-width;
+    margin-right: auto;
+    margin-left: auto;
+  }
+}
+
+.content {
+  width: 100%;
+  max-width: $content-max-width;
+
+  &-block {
+    @extend .content;
+    padding-top: math.div($content-vertical-margin, 2);
+    padding-bottom: math.div($content-vertical-margin, 2);
+
+    &-text {
+      @extend .content-block;
+      text-align: justify;
+    }
+
+    &-text-centered {
+      @extend .content-block;
+      @extend .smaller-font;
+      justify-content: center;
+      text-align: center;
+    }
+
+    &-impressum-header {
+      @extend .content-block;
+      @extend .smaller-font;
+      justify-content: center;
+      text-align: center;
+    }
+
+    &-impressum-text {
+      @extend .content-block;
+      @extend .impressum-font;
+      justify-content: center;
+      padding-top: 0;
+      text-align: center;
+    }
+
+    &-intro {
+      @extend .content-block;
+      @extend .larger-font;
+      padding-bottom: $content-vertical-margin;
+      margin-top: math.div($content-vertical-margin, 2);
+      text-align: center;
+    }
+
+    &-image {
+      @extend .content-block;
+      display: flex;
+      justify-content: center;
+
+      img {
+        max-width: 100%;
+      }
+    }
+  }
+}
+
+.logo {
+  padding-top: $content-vertical-margin;
+}
+
+.fader {
+  z-index: 9999;
+  width: 100%;
+  height: $content-vertical-margin;
+  margin-bottom: $logo-height;
+  background-image: linear-gradient(to top, rgba(255, 255, 255, 0), rgba(255, 255, 255, .9));
+}
+
+@include media-breakpoint-up(lg) {
+
+  .right-column {
+    padding-right: 2rem;
+    padding-left: .5rem;
+  }
+
+  .left-column {
+    padding-right: .5rem;
+    padding-left: .5rem;
+  }
+
+  .content-block-intro {
+    margin-top: $page-margin-top + $logo-height - math.div($content-vertical-margin, 2);
+  }
+
+  .logo {
+    padding-top: $page-margin-top;
+  }
+}
+
+@include media-breakpoint-up(xl) {
+  .right-column-content {
+    margin-left: 0;
+  }
+}
+
+@include media-breakpoint-up(xxl) {
+  .content-block-text {
+    hyphens: none;
+    text-align: left;
+  }
+
+  .content-block-intro {
+    max-width: $intro-max-width;
+    text-align: left;
+  }
+}
+
+.text-justify {
+  text-align: justify !important;
+}
+
+.phone-number {
+  text-decoration: none;
+  white-space: nowrap;
+}
